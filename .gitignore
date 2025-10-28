@@ -1,0 +1,33 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Node / TypeScript
+node_modules/
+dist/
+build/
+.tmp/
+.temp/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# IDE/editor
+.vscode/
+.idea/
+*.swp
+
+# TypeScript output
+*.tsbuildinfo
+
+# Coverage
+coverage/
+.nyc_output/
+
+# Misc
+*.local
+.env
+.env.*.local

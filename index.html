@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Slot Test 1 - 5x3 Slot</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <h1>Slot Test 1</h1>
+      <div class="status-bar">
+        <div>Balance: <span id="balance">1000</span></div>
+        <div>Bet: <span id="bet">10</span></div>
+        <div>Last Win: <span id="lastWin">0</span></div>
+      </div>
+      <div id="slot" class="slot">
+        <!-- Reels will be generated here -->
+        <canvas id="lines" width="720" height="360" aria-hidden="true"></canvas>
+      </div>
+      <div class="controls">
+        <button id="spinBtn">Spin</button>
+        <button id="betDown">- Bet</button>
+        <button id="betUp">+ Bet</button>
+        <button id="autoBtn">Auto: Off</button>
+        <button id="forceCollector" style="background:#444;border:1px solid #666" title="Debug: force a collector + some cash symbols next spin">Force Collector</button>
+  <button id="forceScatter" style="background:#553b88;border:1px solid #7e5cc4" title="Debug: force 3 scatters next spin">Force Scatters</button>
+    <button id="forceTwoScatters" style="background:#7b4fa3;border:1px solid #9a6ed1" title="Debug: force 2 scatters next spin">Force 2 Scatters</button>
+    <button id="simulateRTP" style="background:#2f4858;border:1px solid #4e7087" title="Debug: run RTP simulation (100k spins)">Simulate RTP</button>
+      </div>
+      <div class="log" id="log"></div>
+      <details class="paytable">
+        <summary>Paytable</summary>
+        <ul>
+          <li>3+ of symbol A (🔔): 5x bet per line</li>
+          <li>3+ of symbol B (🍒): 4x bet per line</li>
+          <li>3+ of symbol C (⭐): 3x bet per line</li>
+          <li>3+ of symbol D (🍋): 2x bet per line</li>
+          <li>3+ of symbol E (7️⃣): 10x bet per line</li>
+        </ul>
+        <p>Horizontal lines only (3 lines). RTP not tuned.</p>
+      </details>
+    </div>
+    <script defer src="./main.js"></script>
+  </body>
+</html>

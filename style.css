@@ -1,0 +1,53 @@
+body { font-family: system-ui, Arial, sans-serif; background:#10151c; color:#eee; margin:0; display:flex; justify-content:center; }
+#app { max-width:900px; padding:20px; }
+h1 { margin-top:0; }
+.status-bar { display:flex; gap:24px; margin-bottom:12px; font-weight:600; }
+.slot { display:flex; gap:12px; background:#18222e; padding:20px 24px; border-radius:12px; box-shadow:0 4px 20px rgba(0,0,0,0.4); position:relative; overflow:hidden; }
+.slot canvas#lines { position:absolute; top:20px; left:24px; pointer-events:none; width: calc(120px * 5 + 12px * 4); height:360px; z-index:5; }
+.reel { width:120px; height:360px; background:#0f141b; border-radius:8px; position:relative; overflow:hidden; display:flex; align-items:center; justify-content:center; font-size:46px; font-weight:700; color:#fff; box-shadow:inset 0 0 12px rgba(0,0,0,0.6); }
+.reel .symbols { position:absolute; top:0; left:0; right:0; will-change:transform; }
+.reel .symbols.spinning-phase { filter:blur(2.2px) brightness(1.15); }
+.reel .symbols.spinning-phase { filter:blur(2px) brightness(1.1); }
+.symbol { height:120px; display:flex; align-items:center; justify-content:center; }
+.controls { margin-top:16px; display:flex; gap:12px; }
+button { background:#2b6cb0; color:#fff; border:none; padding:10px 18px; border-radius:6px; cursor:pointer; font-size:14px; font-weight:600; letter-spacing:0.5px; }
+button:disabled { opacity:0.4; cursor:not-allowed; }
+button:hover:not(:disabled) { background:#3680cf; }
+.winning { animation: flash 0.9s ease-in-out both infinite; }
+@keyframes flash { 0%,100%{ filter:brightness(1);} 50%{ filter:brightness(1.8);} }
+.dimmed { filter:brightness(0.35) saturate(0.4); transition: filter 180ms ease; }
+.wild { position:relative; }
+.wild-landed { animation: wildPulse 1.4s ease-out 1; }
+/* Feature symbol styles */
+.cash-symbol { position:relative; }
+.cash-symbol .cash-badge { font-weight:600; }
+.cash-collected { animation: cashCollectPulse 0.9s ease-out 1; }
+.collector-symbol { outline:2px solid #62d0ff; box-shadow:0 0 10px #2bbdff, 0 0 18px rgba(98,208,255,0.6); border-radius:8px; position:relative; }
+.collector-symbol::after { content:'COLLECT'; position:absolute; top:4px; left:50%; transform:translateX(-50%); font-size:9px; font-weight:700; letter-spacing:0.5px; background:rgba(98,208,255,0.18); padding:2px 6px; border-radius:10px; color:#bfefff; text-shadow:0 0 4px #1379a6; }
+/* Cash collect fly animation */
+.cash-fly { position:absolute; pointer-events:none; font:600 12px system-ui; padding:4px 8px; background:linear-gradient(90deg,#ffe56a,#ffc400); color:#222; border-radius:14px; box-shadow:0 4px 10px rgba(0,0,0,0.45); transform:translate(-50%,-50%) scale(.6); opacity:0; }
+@keyframes flyToCollector { 0% { opacity:0; transform:translate(var(--sx),var(--sy)) scale(.55); } 8% { opacity:1; } 65% { opacity:1; } 100% { opacity:0; transform:translate(var(--tx),var(--ty)) scale(.35); } }
+.collector-pulse-burst { animation: collectorBurst 0.6s ease-out; }
+@keyframes collectorBurst { 0% { box-shadow:0 0 10px #2bbdff,0 0 18px rgba(98,208,255,0.6); } 40% { box-shadow:0 0 22px #5fe1ff,0 0 36px rgba(98,208,255,0.85); } 100% { box-shadow:0 0 10px #2bbdff,0 0 18px rgba(98,208,255,0.6); } }
+.collector-total-badge { position:absolute; left:50%; transform:translateX(-50%); bottom:-20px; background:#ffe56a; color:#222; font:600 12px system-ui; padding:3px 10px 4px; border-radius:14px; box-shadow:0 2px 6px rgba(0,0,0,0.4); white-space:nowrap; opacity:0; animation: collectorTotalFade .7s ease forwards .1s; }
+@keyframes collectorTotalFade { from { transform:translate(-50%,6px) scale(.8); opacity:0; } to { transform:translate(-50%,0) scale(1); opacity:1; } }
+@keyframes cashCollectPulse {
+	0% { transform:scale(0.95); filter:brightness(1); }
+	40% { transform:scale(1.15); filter:brightness(1.6); }
+	100% { transform:scale(1); filter:brightness(1); }
+}
+@keyframes wildPulse {
+	0% { transform:scale(0.9); filter:drop-shadow(0 0 0px #ffd54a); }
+	35% { transform:scale(1.22); filter:drop-shadow(0 0 14px #ffda62); }
+	60% { transform:scale(1.06); filter:drop-shadow(0 0 6px #ffc937); }
+	100% { transform:scale(1); filter:drop-shadow(0 0 0px #ffda62); }
+}
+.log { margin-top:18px; font-size:13px; max-height:160px; overflow:auto; background:#0d1217; padding:10px 12px; border-radius:6px; line-height:1.4; }
+.paytable { margin-top:22px; }
+
+/* Scatter symbol styling */
+.scatter-symbol { outline:2px solid #ff9f1a; box-shadow:0 0 8px #ff9f1a, 0 0 16px rgba(255,159,26,0.55); border-radius:8px; position:relative; }
+.scatter-symbol::after { content:'SCATTER'; position:absolute; top:4px; left:50%; transform:translateX(-50%); font-size:9px; font-weight:700; letter-spacing:0.5px; background:rgba(255,159,26,0.18); padding:2px 6px; border-radius:10px; color:#ffe7c0; text-shadow:0 0 4px #ff9f1a; }
+
+/* Free spins theme */
+.slot.in-free-spins { background:#2c1835; box-shadow:0 0 0 3px #ff9f1a inset, 0 6px 24px rgba(255,159,26,0.35); }
