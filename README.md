@@ -230,3 +230,43 @@ Planned improvement pathways:
 ## Disclaimer
 
 Prototype for educational/demo purposes only; not intended for real gambling use.
+
+## Deployment (GitHub Pages)
+
+This project is automatically deployed to **GitHub Pages** from the `main` branch using the workflow in `.github/workflows/deploy.yml`.
+
+Once Pages is enabled in the repository settings, the live game will be available at:
+
+```
+https://tomtombolag.github.io/TGTest/
+```
+
+If you have a custom Pages domain configured, substitute that URL instead.
+
+### How it works
+
+- On each push to `main`, the workflow copies the static assets (`index.html`, `style.css`, `main.js`, `main.ts`, and optional `rtp-sim.js`) into a `site` artifact.
+- The artifact is published to the GitHub Pages environment (served from the `github-pages` deployment, not a `gh-pages` branch due to the newer Pages Actions flow).
+- A small `404.html` redirect is included so deep links fall back gracefully to `index.html` (future-proofing for client-side routing if added later).
+
+### First-time setup (one-off)
+1. Go to: Repository Settings → Pages.
+2. Under **Build and deployment**, choose: Source = GitHub Actions (should auto-detect once the first workflow run completes).
+3. Save. The next successful workflow run will publish the site.
+
+### Triggering a manual deploy
+- Use the Actions tab → "Deploy Slot Test 1 to GitHub Pages" → Run workflow (workflow_dispatch) if you need to redeploy without new commits.
+
+### Local preview
+Because this is a pure static site (no build step required), you can just open `index.html`. For a local HTTP origin (avoids some browser restrictions & mimics production), run a lightweight server, e.g.:
+
+```bash
+python3 -m http.server 5173
+```
+
+Then visit http://localhost:5173/
+
+### Adding a build step later
+If TypeScript compilation / bundling becomes necessary, insert a build phase into the workflow before the "Prepare site directory" step (e.g., install deps & run a bundler, then copy the built output instead of raw sources).
+
+---
